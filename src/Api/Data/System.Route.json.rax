@@ -4,8 +4,8 @@
       {
         "name": "filesystem-list",
         "path": "/FileSystem/List/{{$type}}/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:list",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:list",
         "priority": 2003,
         "method": [
           "GET",
@@ -15,8 +15,8 @@
       {
         "name": "filesystem-move",
         "path": "/FileSystem/Move/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:move",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:move",
         "priority": 2004,
         "method": [
           "POST"
@@ -25,8 +25,8 @@
       {
         "name": "filesystem-upload",
         "path": "/FileSystem/Upload/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:upload",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:upload",
         "priority": 2005,
         "method": [
           "GET",
@@ -36,8 +36,8 @@
       {
         "name": "filesystem-context-menu",
         "path": "/FileSystem/ContextMenu/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:context.menu",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:context.menu",
         "priority": 2005,
         "method": [
           "GET",
@@ -47,8 +47,8 @@
       {
         "name": "filesystem-rename",
         "path": "/FileSystem/Rename/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:rename",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:rename",
         "priority": 2005,
         "method": [
           "POST"
@@ -57,8 +57,8 @@
       {
         "name": "filesystem-copy",
         "path": "/FileSystem/Copy/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:copy",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:copy",
         "priority": 2005,
         "method": [
           "POST"
@@ -67,8 +67,8 @@
       {
         "name": "filesystem-create",
         "path": "/FileSystem/{{$type}}}}/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:create",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:create",
         "priority": 2006,
         "method": [
           "POST"
@@ -77,8 +77,8 @@
       {
         "name": "filesystem-read",
         "path": "/FileSystem/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:read",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:read",
         "priority": 2007,
         "method": [
           "GET",
@@ -88,8 +88,8 @@
       {
         "name": "filesystem-update",
         "path": "/FileSystem/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:update",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:update",
         "priority": 2008,
         "method": [
           "PATCH",
@@ -99,8 +99,8 @@
       {
         "name": "filesystem-delete",
         "path": "/FileSystem/",
-        "host": "{{$options.host}}",
-        "controller": "Domain:{{controller.host($options.host)}}:Controller:FileSystem:delete",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:delete",
         "priority": 2009,
         "method": [
           "DELETE"

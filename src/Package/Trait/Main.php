@@ -140,7 +140,7 @@ trait Main {
                             $clone->data(App::OPTIONS, $clone_options->data());                                                        
                             switch($file->original_extension){
                                 case 'json':                                    
-                                    echo Main . phpCli::info('Processing file:') . $file->target . PHP_EOL;
+                                    echo Cli::info('Processing file:') . $file->target . PHP_EOL;
                                     $content = $clone->parse_read($file->url);                                    
                                     if($patch !== null) {
                                         File::delete($file->target);
