@@ -1,6 +1,6 @@
 {{$options = options()}}
 <?php
-namespace Domain\{php.namespace.host($options.backend.host)}}\Service;
+namespace Domain\{{php.namespace.host($options.backend.host)}}\Service;
 
 use DateTime;
 
