@@ -103,7 +103,6 @@ trait Main {
                 $file->target = $dir_api . $explode[1];
             }
         }
-        ddd($read);
         foreach($read as $nr => $file){
             if($file->type === Dir::TYPE){
                 if(!File::exist($file->target)){
