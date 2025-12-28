@@ -3,7 +3,7 @@
     "Route": [
       {
         "name": "filesystem-list",
-        "path": "/FileSystem/List/{{$type}}/",
+        "path": "/FileSystem/List/{{literal}}{{$type}}{{/literal}}/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:list",
         "priority": 2003,
