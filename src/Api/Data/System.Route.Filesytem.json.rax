@@ -66,7 +66,7 @@
       },
       {
         "name": "filesystem-create",
-        "path": "/FileSystem/{{$type}}}}/",
+        "path": "/FileSystem/{{literal}}{{$type}}{{/literal}}/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{controller.host(options('backend.host'))}}:Controller:FileSystem:create",
         "priority": 2006,
