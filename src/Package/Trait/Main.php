@@ -162,7 +162,7 @@ trait Main {
                                     }
                                 break;
                                 default:
-                                    echo Main . phpCli::info('Processing file:') . $file->target . PHP_EOL;
+                                    echo Cli::info('Processing file:') . $file->target . PHP_EOL;
                                     $clone_options->set('source', $file->url);
                                     $flags = App::flags($clone);
                                     $parse = new Parse($clone, $data, $flags, $clone_options->data());
@@ -183,7 +183,7 @@ trait Main {
                     if($patch !== null) {
                         File::delete($file->target);
                     }
-                    echo Main . phpCli::info('Processing file:') . $file->target . PHP_EOL;
+                    echo Cli::info('Processing file:') . $file->target . PHP_EOL;
                     File::copy($file->url, $file->target);                    
                     File::permission($object, [
                         'target' => $file->target,
