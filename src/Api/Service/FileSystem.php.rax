@@ -95,7 +95,6 @@ class FileSystem {
       */
      public static function download(App $object, object $role, object|null $user=null): void
      {
-        dd($role);
         if(
             property_exists($role, 'name') &&
             in_array(
@@ -106,6 +105,8 @@ class FileSystem {
         ){
             $type = $object->request('type');
             $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+            d($type);
+            ddd($url);
             $record = [];
             $record['url'] = $url;
             switch(strtolower($type)){
