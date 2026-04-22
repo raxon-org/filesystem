@@ -122,7 +122,7 @@ class FileSystem {
                         header('Cache-Control: must-revalidate');
                         header('Pragma: public');
                         header('Content-Length: ' . File::size($url));
-                        File::read($url);
+                        echo File::read($url);
                         exit;
                     }
                 break;
