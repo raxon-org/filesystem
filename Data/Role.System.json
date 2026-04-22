@@ -27,6 +27,18 @@
       "name": "FileSystem:read",
       "#class": "Account.Permission",
       "#comment": "Application PhotoViewer read"
+    },
+    {
+      "name": "FileSystem:list",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:download",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:upload",
+      "#class": "Account.Permission"
     }
   ]
 }
