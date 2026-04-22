@@ -108,11 +108,11 @@ class FileSystem {
             $record = [];
             $record['url'] = $url;
             switch($type){
-                case FileSystem::TYPE_DIRECTORY :
+                case Dir::TYPE :
                     $record['type'] = Dir::TYPE;
                     throw new Exception('Cannot download directory as archive yet...');
                 break;
-                case FileSystem::TYPE_FILE :
+                case File::TYPE :
                     $record['type'] = File::TYPE;
                     ddd($url);
                     if(File::exist($url)){
