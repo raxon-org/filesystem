@@ -105,7 +105,7 @@ class FileSystem {
             ){
                 $type = $object->request('type');
                 $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
-                d($tpe);
+                d($type);
                 dd($url);
                 $record = [];
                 $record['url'] = $url;
