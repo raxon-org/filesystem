@@ -91,53 +91,54 @@ class FileSystem {
     }
 
      /**
-         * @throws Exception
-         */
-        public static function download(App $object, object $role, object|null $user=null): array
-        {
-            if(
-                property_exists($role, 'name') &&
-                in_array(
-                    $role->name, [
-                    'ROLE_ADMIN',
-                    'ROLE_SYSTEM'
-                ])
-            ){
-                $type = $object->request('type');
-                $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
-                $record = [];
-                $record['url'] = $url;
-                switch(strtolower($type)){
-                    case FileSystem::TYPE_DIRECTORY :
-                        $record['type'] = Dir::TYPE;
-                        throw new Exception('Cannot download directory as archive yet...');
-                    break;
-                    case FileSystem::TYPE_FILE :
-                        $record['type'] = File::TYPE;
-                        ddd($url);
-                        if(File::exist($url)){
-                            header('Content-Description: File Transfer');
-                             header('Content-Type: application/octet-stream');
-                             header('Content-Disposition: attachment; filename=' . File::basename($url));
-                             header('Expires: 0');
-                             header('Cache-Control: must-revalidate');
-                             header('Pragma: public');
-                             header('Content-Length: ' . File::size($url));
-                             File::read($url);
-                             exit;
-                        }
-                    break;
-                    default:
-                        throw new Exception('Type (' . $type . ') undefined in download...');
-                }
-                $record['extension'] = File::extension($url);
-                $record['name'] = File::basename($url, '.' . $record['extension']);
-                $record['size'] = File::size($url);
-                $record['isModified'] = new DateTime();
-                return $record;
+      * @throws Exception
+      */
+     public static function download(App $object, object $role, object|null $user=null): void
+     {
+dd($role);
+        if(
+            property_exists($role, 'name') &&
+            in_array(
+                $role->name, [
+                'ROLE_ADMIN',
+                'ROLE_SYSTEM'
+            ])
+        ){
+            $type = $object->request('type');
+            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+            $record = [];
+            $record['url'] = $url;
+            switch(strtolower($type)){
+                case FileSystem::TYPE_DIRECTORY :
+                    $record['type'] = Dir::TYPE;
+                    throw new Exception('Cannot download directory as archive yet...');
+                break;
+                case FileSystem::TYPE_FILE :
+                    $record['type'] = File::TYPE;
+                    ddd($url);
+                    if(File::exist($url)){
+                        header('Content-Description: File Transfer');
+                         header('Content-Type: application/octet-stream');
+                         header('Content-Disposition: attachment; filename=' . File::basename($url));
+                         header('Expires: 0');
+                         header('Cache-Control: must-revalidate');
+                         header('Pragma: public');
+                         header('Content-Length: ' . File::size($url));
+                         File::read($url);
+                         exit;
+                    }
+                break;
+                default:
+                    throw new Exception('Type (' . $type . ') undefined in download...');
             }
-            throw new Exception('Role (' . $role->name . ') undefined...');
+            $record['extension'] = File::extension($url);
+            $record['name'] = File::basename($url, '.' . $record['extension']);
+            $record['size'] = File::size($url);
+            $record['isModified'] = new DateTime();
+            return $record;
         }
+        throw new Exception('Role (' . $role->name . ') undefined...');
+    }
 
     /**
      * @throws Exception
