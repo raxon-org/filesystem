@@ -114,17 +114,16 @@ class FileSystem {
                 break;
                 case File::TYPE :
                     $record['type'] = File::TYPE;
-                    dd($url);
                     if(File::exist($url)){
                         header('Content-Description: File Transfer');
-                         header('Content-Type: application/octet-stream');
-                         header('Content-Disposition: attachment; filename=' . File::basename($url));
-                         header('Expires: 0');
-                         header('Cache-Control: must-revalidate');
-                         header('Pragma: public');
-                         header('Content-Length: ' . File::size($url));
-                         File::read($url);
-                         exit;
+                        header('Content-Type: application/octet-stream');
+                        header('Content-Disposition: attachment; filename=' . File::basename($url));
+                        header('Expires: 0');
+                        header('Cache-Control: must-revalidate');
+                        header('Pragma: public');
+                        header('Content-Length: ' . File::size($url));
+                        File::read($url);
+                        exit;
                     }
                 break;
                 default:
