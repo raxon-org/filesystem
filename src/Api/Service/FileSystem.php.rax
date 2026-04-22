@@ -105,11 +105,9 @@ class FileSystem {
         ){
             $type = $object->request('type');
             $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
-            d($type);
-            ddd($url);
             $record = [];
             $record['url'] = $url;
-            switch(strtolower($type)){
+            switch($type){
                 case FileSystem::TYPE_DIRECTORY :
                     $record['type'] = Dir::TYPE;
                     throw new Exception('Cannot download directory as archive yet...');
