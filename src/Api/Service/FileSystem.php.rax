@@ -95,7 +95,7 @@ class FileSystem {
       */
      public static function download(App $object, object $role, object|null $user=null): void
      {
-dd($role);
+        dd($role);
         if(
             property_exists($role, 'name') &&
             in_array(
@@ -131,11 +131,6 @@ dd($role);
                 default:
                     throw new Exception('Type (' . $type . ') undefined in download...');
             }
-            $record['extension'] = File::extension($url);
-            $record['name'] = File::basename($url, '.' . $record['extension']);
-            $record['size'] = File::size($url);
-            $record['isModified'] = new DateTime();
-            return $record;
         }
         throw new Exception('Role (' . $role->name . ') undefined...');
     }
