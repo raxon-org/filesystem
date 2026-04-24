@@ -59,6 +59,7 @@ class FileSystem extends Controller {
                 $role->name !== 'ROLE_ANONYMOUS' &&
                 $user
             ){
+                dd('fuck off');
                 $data = Service::download($object, $role, $user);
                 return new Response(
                     $data,
