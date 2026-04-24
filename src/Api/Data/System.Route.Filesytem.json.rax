@@ -71,7 +71,8 @@
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:download",
         "priority": 2005,
         "method": [
-          "POST"
+          "POST",
+          "GET"
         ]
       },
       {
