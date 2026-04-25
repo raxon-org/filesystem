@@ -209,7 +209,11 @@ class FileSystem {
         ){
             $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             if(File::exist($url)){
-                return File::read($url);
+                $bytes = File::size($url);
+                for($i =0; $i < $bytes; $i += 1024 * 1024){
+                    echo File::read_part($url, $i, 1024 * 1024, $bytes);
+                }
+                exit;
             }
             throw new FileNotExistException('File (' . $url .') not exist...');
         }
