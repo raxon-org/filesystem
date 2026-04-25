@@ -478,10 +478,6 @@ class FileSystem {
                     }
                 }
                 $write = File::write($directory . $file, $data);
-                d($write);
-                d($file);
-                d($data);
-                ddd($base64);
             } else {
                 foreach($object->upload()->data() as $nr => $upload){
                     $data = new Data($upload);
