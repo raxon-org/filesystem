@@ -115,7 +115,7 @@ class FileSystem {
                 case File::TYPE :
                     $record['type'] = File::TYPE;
                     if(File::exist($url)){
-                        dd(File::size($url));
+                        $bytes = File::size($url);
                         header('Content-Description: File Transfer');
                         header('Content-Type: application/octet-stream');
                         header('Content-Disposition: attachment; filename=' . File::basename($url));
@@ -123,7 +123,9 @@ class FileSystem {
                         header('Cache-Control: must-revalidate');
                         header('Pragma: public');
                         header('Content-Length: ' . File::size($url));
-                        echo File::read($url);
+                        for($i =0; $i < $bytes; $i += 1024 * 1024){
+                            echo File::read_part($url, $i, 1024 * 1024, $bytes);
+                        }
                         exit;
                     }
                 break;
