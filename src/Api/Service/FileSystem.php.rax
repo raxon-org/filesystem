@@ -115,6 +115,7 @@ class FileSystem {
                 case File::TYPE :
                     $record['type'] = File::TYPE;
                     if(File::exist($url)){
+                        dd(File::size($url));
                         header('Content-Description: File Transfer');
                         header('Content-Type: application/octet-stream');
                         header('Content-Disposition: attachment; filename=' . File::basename($url));
