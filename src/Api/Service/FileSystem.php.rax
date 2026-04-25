@@ -210,6 +210,7 @@ class FileSystem {
             $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             if(File::exist($url)){
                 $bytes = File::size($url);
+                ini_set('zlib.output_compression', 'Off');
                 header('Content-Length: ' . $bytes);
                 for($i =0; $i < $bytes; $i += 1024 * 1024){
                     echo File::read_part($url, $i, 1024 * 1024, $bytes);
