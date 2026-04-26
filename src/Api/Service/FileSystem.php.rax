@@ -482,7 +482,7 @@ class FileSystem {
                         $data = base64_decode($explode[1]);
                     }
                 }
-                $write = File::write($directory . $file, $data);
+                $write = File::append($directory . $file, $data);
             } else {
                 foreach($object->upload()->data() as $nr => $upload){
                     $data = new Data($upload);
