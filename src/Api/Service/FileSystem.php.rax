@@ -195,7 +195,7 @@ class FileSystem {
      * @throws FileNotExistException
      * @throws Exception
      */
-    public static function read(App $object, object $role, object|null $user=null): string
+    public static function read(App $object, object $role, object|null $user=null): void
     {
         if(
             property_exists($role, 'name') &&
@@ -210,11 +210,21 @@ class FileSystem {
             $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             if(File::exist($url)){
                 $bytes = File::size($url);
-                /**
-                    //does not work (no content length present in the response header
-                    ini_set('zlib.output_compression', 'Off');
-                    header('Content-Length: ' . $bytes);
-                **/
+                $extension = File::extension($url);
+                if($extension === ''){
+                    $extension = 'txt';
+                }
+                $content_type = $object->config('contentType.' . $extension);
+                if(!$content_type){
+                    throw new Exception('Content-Type ' . $contentType . ' not supported, please add it to the config if wanted.');
+                }
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename=' . File::basename($url));
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . File::size($url));
                 for($i =0; $i < $bytes; $i += 1024 * 1024){
                     echo File::read_part($url, $i, 1024 * 1024, $bytes);
                 }
