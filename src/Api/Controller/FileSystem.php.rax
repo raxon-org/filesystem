@@ -86,14 +86,26 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $extension = File::extension($object->request('url'));
+            $url = $object->request('url');
+            $extension = File::extension($url);
             if($extension === ''){
                 $extension = 'txt';
             }
             $content_type = $object->config('contentType.' . $extension);
-            ddd($content_type);
             if($content_type){
-
+                $bytes = File::size($url);
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename=' . File::basename($url));
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . File::size($url));
+                for($i =0; $i < $bytes; $i += 1024 * 1024){
+                    echo File::read_part($url, $i, 1024 * 1024, $bytes);
+                }
+                exit;
+                /*
                 $data = Service::read($object, $role, $user);
                 $length = strlen($data);
                 return new Response(
@@ -104,6 +116,7 @@ class FileSystem extends Controller {
                         'Content-Type: ' . $contentType
                     ]
                 );
+                */
             }
             throw new Exception('Content-Type ' . $contentType . ' not supported, please add it to the config if wanted.');
         } else {
