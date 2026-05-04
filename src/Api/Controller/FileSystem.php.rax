@@ -91,8 +91,9 @@ class FileSystem extends Controller {
                 $extension = 'txt';
             }
             $content_type = $object->config('contentType.' . $extension);
+            ddd($content_type);
             if($content_type){
-                ddd($content_type);
+
                 $data = Service::read($object, $role, $user);
                 $length = strlen($data);
                 return new Response(
