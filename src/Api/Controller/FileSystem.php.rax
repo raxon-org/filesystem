@@ -105,18 +105,6 @@ class FileSystem extends Controller {
                     echo File::read_part($url, $i, 1024 * 1024, $bytes);
                 }
                 exit;
-                /*
-                $data = Service::read($object, $role, $user);
-                $length = strlen($data);
-                return new Response(
-                    $data,
-                    Response::TYPE_FILE,
-                    Response::STATUS_OK,
-                    [
-                        'Content-Type: ' . $contentType
-                    ]
-                );
-                */
             }
             throw new Exception('Content-Type ' . $contentType . ' not supported, please add it to the config if wanted.');
         } else {
