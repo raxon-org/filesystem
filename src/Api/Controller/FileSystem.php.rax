@@ -87,12 +87,12 @@ class FileSystem extends Controller {
             $user
         ){
             $extension = File::extension($object->request('url'));
-            ddd($extension);
             if($extension === ''){
                 $extension = 'txt';
             }
             $contentType = $object->config('contentType.' . $extension);
             if($contentType){
+                ddd($contentType);
                 $data = Service::read($object, $role, $user);
                 $length = strlen($data);
                 return new Response(
