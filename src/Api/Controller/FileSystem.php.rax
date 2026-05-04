@@ -90,9 +90,9 @@ class FileSystem extends Controller {
             if($extension === ''){
                 $extension = 'txt';
             }
-            $contentType = $object->config('contentType.' . $extension);
-            if($contentType){
-                ddd($contentType);
+            $content_type = $object->config('contentType.' . $extension);
+            if($content_type){
+                ddd($content_type);
                 $data = Service::read($object, $role, $user);
                 $length = strlen($data);
                 return new Response(
@@ -104,7 +104,7 @@ class FileSystem extends Controller {
                     ]
                 );
             }
-            throw new Exception('ContentType ' . $contentType . ' not supported, please add it to the config if wanted.');
+            throw new Exception('Content-Type ' . $contentType . ' not supported, please add it to the config if wanted.');
         } else {
             $token = Server::token();
             if($token){
