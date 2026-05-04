@@ -87,6 +87,7 @@ class FileSystem extends Controller {
             $user
         ){
             $extension = File::extension($object->request('url'));
+            ddd($extension);
             if($extension === ''){
                 $extension = 'txt';
             }
