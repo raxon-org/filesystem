@@ -152,6 +152,10 @@ class FileSystem {
             $source = $object->request('source');
             $destination = $object->request('destination');
             $overwrite = $object->request('overwrite') ?? false;
+            d($source);
+            d($destination);
+            d($overwrite);
+            d(File::exist($destination));
             $move = File::move($source, $destination, $overwrite);
             $record = [];
             $record['source'] = $source;
