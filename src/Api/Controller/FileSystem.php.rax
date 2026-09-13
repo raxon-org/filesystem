@@ -81,6 +81,7 @@ class FileSystem extends Controller {
      */
     public static function read(App $object){
         $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        ddd('found');
         if(
             property_exists($role, 'name') &&
             $role->name !== 'ROLE_ANONYMOUS' &&

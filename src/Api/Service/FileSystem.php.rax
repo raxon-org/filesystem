@@ -220,7 +220,7 @@ class FileSystem {
                 }
                 $content_type = $object->config('contentType.' . $extension);
                 if(!$content_type){
-                    throw new Exception('Content-Type ' . $contentType . ' not supported, please add it to the config if wanted.');
+                    throw new Exception('Extension: ' . $extension . ', Content-Type: ' . $contentType . ' not supported, please add it to the config if wanted.');
                 }
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
