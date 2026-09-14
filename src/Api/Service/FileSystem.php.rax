@@ -32,7 +32,14 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function create(App $object, object $role, object|null $user=null): array
+    public static function create(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $url='',
+        string $type='',
+        string|null $content=null
+    ): array
     {
         if(
             property_exists($role, 'name') &&
@@ -42,14 +49,12 @@ class FileSystem {
                 'ROLE_SYSTEM'
             ])
         ){
-            $type = $object->request('type');
-            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             $record = [];
             $record['url'] = $url;
             switch(strtolower($type)){
                 case FileSystem::TYPE_DIRECTORY :
                     if(File::exist($url)){
-                        throw new Exception('File already exists...');
+                        throw new Exception('Directory already exists...');
                     }
                     $create = Dir::create($url, Dir::CHMOD);
                     if(!$create){
@@ -61,8 +66,7 @@ class FileSystem {
                     if(File::exist($url)){
                         throw new Exception('File already exists...');
                     }
-                    $content = $object->request('content');
-                    if($content){
+                    if($content !== null && strlen($content) > 0){
                         $write = File::write($url, $content);
                         if(!$write){
                             throw new Exception('Failed to create file...');
@@ -93,7 +97,13 @@ class FileSystem {
      /**
       * @throws Exception
       */
-     public static function download(App $object, object $role, object|null $user=null): void
+     public static function download(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $url='',
+        string $type=''
+    ): void
      {
         if(
             property_exists($role, 'name') &&
@@ -103,8 +113,6 @@ class FileSystem {
                 'ROLE_SYSTEM'
             ])
         ){
-            $type = $object->request('type');
-            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             $record = [];
             $record['url'] = $url;
             switch($type){
@@ -126,7 +134,7 @@ class FileSystem {
                         for($i =0; $i < $bytes; $i += 1024 * 1024){
                             echo File::read_chunk($url, $i, 1024 * 1024, $bytes);
                         }
-                        exit;
+                        exit(0);
                     }
                 break;
                 default:
@@ -139,7 +147,14 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function rename(App $object, object $role, object|null $user=null): array
+    public static function rename(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $source='',
+        string $destination='',
+        bool $overwrite=false
+    ): array
     {
         if(
             property_exists($role, 'name') &&
@@ -149,13 +164,6 @@ class FileSystem {
                 'ROLE_SYSTEM'
             ])
         ) {
-            $source = $object->request('source');
-            $destination = $object->request('destination');
-            $overwrite = $object->request('overwrite') ?? false;
-            d($source);
-            d($destination);
-            d($overwrite);
-            d(File::exist($destination));
             $move = File::move($source, $destination, $overwrite);
             $record = [];
             $record['source'] = $source;
@@ -169,7 +177,14 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function copy(App $object, object $role, object|null $user=null): array
+    public static function copy(
+        App $object,
+        object $role,
+        object|null $user=null
+        string $source='',
+        string $destination='',
+        bool $overwrite=false
+    ): array
     {
         if(
             property_exists($role, 'name') &&
@@ -179,8 +194,12 @@ class FileSystem {
                 'ROLE_SYSTEM'
             ])
         ) {
-            $source = $object->request('source');
-            $destination = $object->request('destination');
+            if(File::exist($destination) && $overwrite === false){
+                throw new Exception('Destination (' . $destination . ') already exist...');
+            }
+            if(File::exist($source) && $overwrite === true){
+                File::delete($destination);
+            }
             if(Dir::is($source)){
                 $copy = Dir::copy($source, $destination);
             } else {
@@ -199,7 +218,12 @@ class FileSystem {
      * @throws FileNotExistException
      * @throws Exception
      */
-    public static function read(App $object, object $role, object|null $user=null): void
+    public static function read(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $url=''
+    ): void
     {
         if(
             property_exists($role, 'name') &&
@@ -211,7 +235,6 @@ class FileSystem {
                 ]
             )
         ){
-            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
             if(File::exist($url)){
                 $bytes = File::size($url);
                 $extension = File::extension($url);
@@ -232,7 +255,7 @@ class FileSystem {
                 for($i =0; $i < $bytes; $i += 1024 * 1024){
                     echo File::read_chunk($url, $i, 1024 * 1024, $bytes);
                 }
-                exit;
+                exit(0);
             }
             throw new FileNotExistException('File (' . $url .') not exist...');
         }
@@ -244,7 +267,14 @@ class FileSystem {
      * @throws FileWriteException
      * @throws Exception
      */
-    public static function update(App $object, object $role, object|null $user=null): array
+    public static function update(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $url='',
+        string $content=''
+
+    ): array
     {
         if(
             property_exists($role, 'name') &&
@@ -254,7 +284,7 @@ class FileSystem {
                 'ROLE_SYSTEM'
             ])
         ){
-            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+
             $content = $object->request('content');
             if(
                 File::exist($url) &&
@@ -282,7 +312,12 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function delete(App $object, object $role, object|null $user=null): array
+    public static function delete(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $url=''
+    ): array
     {
         if(
             property_exists($role, 'name') &&
@@ -293,7 +328,6 @@ class FileSystem {
                 ]
             )
         ){
-            $url = $object->request('url');
             if(File::exist($url)){
                 $record = [];
                 $record['url'] = $url;
@@ -324,11 +358,16 @@ class FileSystem {
      * @throws ErrorException
      * @throws Exception
      */
-    public static function list(App $object, object $role, object|null $user=null): array
+    public static function list(
+        App $object,
+        object $role,
+        object|null $user=null,
+        string $directory='',
+        string $type=''
+    ): array
     {
 //        $object->session('start');
-        $type = $object->request('type');
-        $directory = $object->request('directory');
+
 //        clearstatcache();
         if(
             property_exists($role, 'name') &&
@@ -464,7 +503,7 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function upload(App $object, object $role, object $user): string
+    public static function upload(App $object, object $role, object $user, string $directory, string $file, string|null $data=null, string $type=''): string
     {
         if(in_array(
             $role->name, [
@@ -472,18 +511,11 @@ class FileSystem {
             'ROLE_SYSTEM'
         ])
         ){
-            $directory = $object->request('directory');
-            if(empty($directory)){
-                throw new Exception('Please give a valid directory...');
-            }
             if(!Dir::is($directory)){
                 Dir::create($directory, Dir::CHMOD);
             }
             $error = [];
-            $file = $object->request('file');
-            $data = $object->request('data');
             if($file && $data){
-                $type = $object->request('type');
                 $explode = explode(';', $type, 2);
                 if(array_key_exists(1, $explode)){
                     $base64 = $explode[1];

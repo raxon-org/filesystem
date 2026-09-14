@@ -3,21 +3,18 @@
 namespace Domain\{{php.namespace.host($options.backend.host)}}\Controller;
 
 use Domain\{{php.namespace.host($options.backend.host)}}\Service\FileSystem as Service;
+use Exception;
 use Package\Raxon\Account\Module\Permission;
-
 use Raxon\App;
-
+use Raxon\Exception\AuthorizationException;
+use Raxon\Exception\UrlEmptyException;
+use Raxon\Exception\ObjectException;
 use Raxon\Module\Core;
+use Raxon\Module\Dir;
 use Raxon\Module\File;
 use Raxon\Module\Response;
 use Raxon\Module\Server;
 use Raxon\Module\Controller;
-
-use Exception;
-
-use Raxon\Exception\AuthorizationException;
-use Raxon\Exception\UrlEmptyException;
-use Raxon\Exception\ObjectException;
 
 class FileSystem extends Controller {
     const DIR = __DIR__ . DIRECTORY_SEPARATOR;
@@ -33,7 +30,23 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $data = Service::create($object, $role, $user);
+            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+            if(empty($url)){
+                throw new UrlEmptyException('Url is empty.');
+            }
+            $type = $object->request('type');
+            switch($type){
+                case File::TYPE:
+                case Dir::TYPE:
+                    break;
+                default:
+                    throw new Exception('Invalid type.');
+            }
+            $content = null;
+            if($object->request('content')){
+                $content = $object->request('content');
+            }
+            $data = Service::create($object, $role, $user, $url, $type, $content);
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -59,7 +72,19 @@ class FileSystem extends Controller {
                 $role->name !== 'ROLE_ANONYMOUS' &&
                 $user
             ){
-                $data = Service::download($object, $role, $user);
+                $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+                if(empty($url)){
+                    throw new UrlEmptyException('Url is empty.');
+                }
+                $type = $object->request('type');
+                switch($type){
+                    case File::TYPE:
+                    case Dir::TYPE:
+                        break;
+                    default:
+                        throw new Exception('Invalid type.');
+                }
+                $data = Service::download($object, $role, $user, $url, $type);
                 return new Response(
                     $data,
                     Response::TYPE_JSON
@@ -86,7 +111,11 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            Service::read($object, $role, $user);
+            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+            if(empty($url)){
+                throw new UrlEmptyException('Url is empty.');
+            }
+            Service::read($object, $role, $user, $url);
         } else {
             $token = Server::token();
             if($token){
@@ -109,7 +138,12 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $data = Service::update($object, $role, $user);
+            $url = htmlspecialchars_decode($object->request('url'), ENT_HTML5);
+            if(empty($url)){
+                throw new UrlEmptyException('Url is empty.');
+            }
+            $content = $object->request('content');
+            $data = Service::update($object, $role, $user, $url, $content);
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -130,13 +164,14 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function delete(App $object){
-        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        $role = Permission::controller($object, Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $data = Service::delete($object, $role, $user);
+            $url = $object->request('url');
+            $data = Service::delete($object, $role, $user, $url);
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -157,12 +192,17 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function list(App $object){
-        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        $role = Permission::controller($object, Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
             $role->name !== 'ROLE_ANONYMOUS'
         ){
-            $data = Service::list($object, $role, $user);
+            $type = $object->request('type');
+            if(empty($type)){
+                throw new Exception('Type is empty.');
+            }
+            $directory = $object->request('directory');
+            $data = Service::list($object, $role, $user, $directory, $type);
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -183,13 +223,16 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function rename(App $object){
-        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        $role = Permission::controller($object, Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $data = Service::rename($object, $role, $user);
+            $source = $object->request('source');
+            $destination = $object->request('destination');
+            $overwrite = $object->request('overwrite') ?? false;
+            $data = Service::rename($object, $role, $user, $source, $destination, $overwrite);
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -216,7 +259,17 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $data = Service::copy($object, $role, $user);
+            $source = $object->request('source');
+            $destination = $object->request('destination');
+            $overwrite = $object->request('overwrite') ?? false;
+            $data = Service::copy(
+                $object,
+                $role,
+                $user,
+                $source,
+                $destination,
+                $overwrite
+            );
             return new Response(
                 $data,
                 Response::TYPE_JSON
@@ -243,7 +296,17 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $message = Service::upload($object, $role, $user);
+            $directory = $object->request('directory');
+            if(empty($directory)){
+                throw new Exception('Please give a valid directory...');
+            }
+            $file = $object->request('file');
+            if(empty($file)){
+                throw new Exception('Please give a valid file...');
+            }
+            $type = $object->request('type');
+            $data = $object->request('data');
+            $message = Service::upload($object, $role, $user, $directory, $file, $data, $type);
             if(empty($message)){
                 $code = 200;
             } else {
