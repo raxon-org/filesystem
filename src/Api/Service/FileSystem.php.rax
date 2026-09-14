@@ -124,7 +124,7 @@ class FileSystem {
                         header('Pragma: public');
                         header('Content-Length: ' . File::size($url));
                         for($i =0; $i < $bytes; $i += 1024 * 1024){
-                            echo File::read_part($url, $i, 1024 * 1024, $bytes);
+                            echo File::read_chunk($url, $i, 1024 * 1024, $bytes);
                         }
                         exit;
                     }
@@ -228,9 +228,9 @@ class FileSystem {
                 header('Expires: 0');
                 header('Cache-Control: must-revalidate');
                 header('Pragma: public');
-                header('Content-Length: ' . File::size($url));
+                header('Content-Length: ' . $bytes);
                 for($i =0; $i < $bytes; $i += 1024 * 1024){
-                    echo File::read_part($url, $i, 1024 * 1024, $bytes);
+                    echo File::read_chunk($url, $i, 1024 * 1024, $bytes);
                 }
                 exit;
             }
