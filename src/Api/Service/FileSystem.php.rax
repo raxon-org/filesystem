@@ -180,7 +180,7 @@ class FileSystem {
     public static function copy(
         App $object,
         object $role,
-        object|null $user=null
+        object|null $user=null,
         string $source='',
         string $destination='',
         bool $overwrite=false
@@ -503,7 +503,15 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function upload(App $object, object $role, object $user, string $directory, string $file, string|null $data=null, string $type=''): string
+    public static function upload(
+        App $object,
+        object $role,
+        object $user,
+        string $directory,
+        string $file,
+        string|null $data=null,
+        string $type=''
+    ): string
     {
         if(in_array(
             $role->name, [
