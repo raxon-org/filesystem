@@ -362,7 +362,7 @@ class FileSystem {
         App $object,
         object $role,
         object|null $user=null,
-        string $directory='',
+        string|null $directory=null,
         string $type=''
     ): array
     {
