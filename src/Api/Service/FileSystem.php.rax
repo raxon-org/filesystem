@@ -596,7 +596,12 @@ class FileSystem {
     /**
      * @throws Exception
      */
-    public static function context_menu(App $object, object $role, object $user, $file): array
+    public static function context_menu(
+        App $object,
+        object $role,
+        object $user,
+        object $file
+    ): array
     {
         $nodeList = [];
         $is_new = false;
