@@ -8,6 +8,8 @@ use Exception;
 
 use Raxon\App;
 
+use Raxon\Exception\DirectoryException;
+use Raxon\Exception\DirectoryNotExistException;
 use Raxon\Exception\ErrorException;
 use Raxon\Exception\FileMoveException;
 use Raxon\Exception\FileNotExistException;
@@ -367,8 +369,6 @@ class FileSystem {
     ): array
     {
 //        $object->session('start');
-
-//        clearstatcache();
         if(
             property_exists($role, 'name') &&
             $role->name === 'ROLE_ANONYMOUS'){
@@ -393,8 +393,11 @@ class FileSystem {
                 $directory = '/';
             }
         }
+        if(!Dir::exist($directory)){
+            throw new DirectoryNotExistException('Directory (' . $directory . ') doesn\'t exist...');
+        }
         if(!Dir::is($directory)){
-            throw new ErrorException('Please give a valid directory...');
+            throw new DirectoryException('Please give a valid directory...');
         }
         switch(strtolower($type)){
             case FileSystem::TYPE_FILE :
