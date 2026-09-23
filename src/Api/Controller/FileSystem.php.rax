@@ -36,8 +36,6 @@ class FileSystem extends Controller {
             }
             $type = $object->request('type');
             trace();
-            d($type);
-            d(Dir::TYPE);
             switch($type){
                 case File::TYPE:
                 case Dir::TYPE:
