@@ -35,7 +35,6 @@ class FileSystem extends Controller {
                 throw new UrlEmptyException('Url is empty.');
             }
             $type = $object->request('type');
-            trace();
             switch($type){
                 case File::TYPE:
                 case Dir::TYPE:
