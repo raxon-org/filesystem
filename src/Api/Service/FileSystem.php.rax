@@ -25,7 +25,7 @@ class FileSystem {
     const NAME = 'FileSystem';
 
     const TYPE_FILE = 'file';
-    const TYPE_DIRECTORY = 'directory';
+    const TYPE_DIRECTORY = 'dir';
     const TYPE_TREE = 'tree';
     const TYPE_DESKTOP = 'desktop';
     const TYPE_FAVORITE = 'favorite';
@@ -53,8 +53,9 @@ class FileSystem {
         ){
             $record = [];
             $record['url'] = $url;
-            switch(strtolower($type)){
-                case FileSystem::TYPE_DIRECTORY :
+            switch($type)){
+                case Dir::TYPE :
+                case 'dir':
                     if(File::exist($url)){
                         throw new Exception('Directory already exists...');
                     }
@@ -64,7 +65,8 @@ class FileSystem {
                     }
                     $record['type'] = Dir::TYPE;
                 break;
-                case FileSystem::TYPE_FILE :
+                case File::TYPE :
+                case 'file':
                     if(File::exist($url)){
                         throw new Exception('File already exists...');
                     }
