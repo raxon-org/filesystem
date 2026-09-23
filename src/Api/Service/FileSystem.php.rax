@@ -53,7 +53,7 @@ class FileSystem {
         ){
             $record = [];
             $record['url'] = $url;
-            switch($type)){
+            switch($type){
                 case Dir::TYPE :
                 case 'dir':
                     if(File::exist($url)){
