@@ -372,7 +372,7 @@ class FileSystem {
         if(
             property_exists($role, 'name') &&
             $role->name === 'ROLE_ANONYMOUS'){
-            switch (strtolower($type)){
+            switch ($type){
                 case FileSystem::TYPE_TREE :
                     return [];
                 default :
@@ -503,6 +503,9 @@ class FileSystem {
                     $list['nodeList'] = $read->data();
                     return $list;
                 }
+            default:
+                throw new Exception('Type (' . $type . ') not supported...');
+            break;
         }
         return [];
     }
