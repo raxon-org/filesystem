@@ -371,7 +371,6 @@ class FileSystem {
     ): array
     {
 //        $object->session('start');
-ddd($role->name);
         if(
             property_exists($role, 'name') &&
             $role->name === 'ROLE_ANONYMOUS'){
@@ -454,6 +453,9 @@ ddd($role->name);
             case FileSystem::TYPE_DIRECTORY :
                 $dir = new Dir();
                 $read = $dir->read($directory);
+                if($directory === '/'){
+                    ddd($read);
+                }
                 if($read){
                     $list_read = Filter::list($read)->where([
                         'type' => [
