@@ -24,9 +24,9 @@ use Raxon\Module\Sort;
 class FileSystem {
     const NAME = 'FileSystem';
 
-    const TYPE_TREE = 'tree';
-    const TYPE_DESKTOP = 'desktop';
-    const TYPE_FAVORITE = 'favorite';
+    const TYPE_TREE = 'Tree';
+    const TYPE_DESKTOP = 'Desktop';
+    const TYPE_FAVORITE = 'Favorite';
 
 
     /**
