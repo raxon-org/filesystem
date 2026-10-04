@@ -401,6 +401,7 @@ class FileSystem {
         if(!Dir::is($directory)){
             throw new DirectoryException('Please give a valid directory...');
         }
+
         switch(strtolower($type)){
             case FileSystem::TYPE_FILE :
                 $dir = new Dir();
