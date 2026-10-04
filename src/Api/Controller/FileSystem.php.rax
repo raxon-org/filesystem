@@ -198,7 +198,6 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS'
         ){
             $type = $object->request('type');
-            ddd($type);
             if(empty($type)){
                 throw new Exception('Type is empty.');
             }
