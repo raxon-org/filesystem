@@ -453,9 +453,6 @@ class FileSystem {
             case 'Directory' :
                 $dir = new Dir();
                 $read = $dir->read($directory);
-                if($directory === '/'){
-                    ddd($read);
-                }
                 if($read){
                     $list_read = Filter::list($read)->where([
                         'type' => [
