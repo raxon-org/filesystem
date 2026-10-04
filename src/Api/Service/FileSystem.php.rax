@@ -24,8 +24,6 @@ use Raxon\Module\Sort;
 class FileSystem {
     const NAME = 'FileSystem';
 
-    const TYPE_FILE = 'file';
-    const TYPE_DIRECTORY = 'dir';
     const TYPE_TREE = 'tree';
     const TYPE_DESKTOP = 'desktop';
     const TYPE_FAVORITE = 'favorite';
@@ -402,8 +400,8 @@ class FileSystem {
             throw new DirectoryException('Please give a valid directory...');
         }
 
-        switch(strtolower($type)){
-            case FileSystem::TYPE_FILE :
+        switch($type){
+            case File::TYPE :
                 $dir = new Dir();
                 $read = $dir->read($directory);
                 if($read){
@@ -451,7 +449,7 @@ class FileSystem {
                     $list['dir'] = $directory;
                     return $list;
                 }
-            case FileSystem::TYPE_DIRECTORY :
+            case Dir::TYPE :
                 $dir = new Dir();
                 $read = $dir->read($directory);
                 if($directory === '/'){
