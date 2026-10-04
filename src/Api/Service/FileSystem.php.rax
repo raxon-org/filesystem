@@ -450,6 +450,7 @@ class FileSystem {
                     return $list;
                 }
             case Dir::TYPE :
+            case 'Directory' :
                 $dir = new Dir();
                 $read = $dir->read($directory);
                 if($directory === '/'){
