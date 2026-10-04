@@ -371,6 +371,7 @@ class FileSystem {
     ): array
     {
 //        $object->session('start');
+ddd($role->name);
         if(
             property_exists($role, 'name') &&
             $role->name === 'ROLE_ANONYMOUS'){
