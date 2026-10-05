@@ -292,7 +292,7 @@ class FileSystem {
                 File::exist($url) &&
                 $content !== null
             ){
-                File::write($url, $content);
+                $result = File::write($url, $content);
             }
             elseif($content === null){
                 throw new Exception('Content is null...');
@@ -305,6 +305,7 @@ class FileSystem {
             $record['extension'] = File::extension($url);
             $record['name'] = File::basename($url, '.' . $record['extension']);
             $record['size'] = File::size($url);
+            $record['result' ] = $result;
             $record['isModified'] = new DateTime();
             return $record;
         }
