@@ -517,9 +517,9 @@ class FileSystem {
         object $role,
         object $user,
         string $directory,
-        string $file=null,
-        string|null $data=null,
-        string $type=''
+        null|string $file=null,
+        null|string $data=null,
+        null|string $type=null
     ): string
     {
         if(in_array(
