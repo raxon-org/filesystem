@@ -302,9 +302,10 @@ class FileSystem extends Controller {
             }
             $file = $object->request('file');
             $upload_data = $object->upload()->data();
-
-            if(empty($file)){
-ddd($upload_data);
+            if(
+                empty($file) &&
+                empty($upload_data)
+            ){
                 throw new Exception('Please give a valid file...');
             }
             $type = $object->request('type');
