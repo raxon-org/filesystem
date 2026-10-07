@@ -296,6 +296,7 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
+        ddd($object->request());
             $directory = $object->request('directory');
             if(empty($directory)){
                 throw new Exception('Please give a valid directory...');
