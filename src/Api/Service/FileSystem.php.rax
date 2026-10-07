@@ -517,7 +517,7 @@ class FileSystem {
         object $role,
         object $user,
         string $directory,
-        string $file,
+        string $file=null,
         string|null $data=null,
         string $type=''
     ): string
