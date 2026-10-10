@@ -1014,7 +1014,7 @@ class FileSystem {
         $record->set('dir', $object->config('project.volume.dir.recycle'));
         $record->set('type', Dir::TYPE);
         $record->set('name', htmlspecialchars('Recycle Bin', ENT_HTML5));
-        $record->set('icon.class', 'fas fa-recycled-alt');
+        $record->set('icon.class', 'fas fa-recycle');
         $record->set('section.dir', $record->get('dir'));
         $record->set('rename', false);
         $list[] = $record->data();
