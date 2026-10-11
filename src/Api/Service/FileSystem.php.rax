@@ -958,7 +958,7 @@ class FileSystem {
         $record->set('type', Link::TYPE);
         $record->set('name', htmlspecialchars('Favorites', ENT_HTML5));
         $record->set('icon.class', 'fas fa-star');
-        $record->set('section.dir', $record->get('name'));
+        $record->set('section.dir', $record->get('link'));
         $record->set('is_favorite', true);
         $list[] = $record->data();
         $record = new Data();
@@ -1017,7 +1017,7 @@ class FileSystem {
         $record->set('type', Link::TYPE);
         $record->set('name', htmlspecialchars('Recycle Bin', ENT_HTML5));
         $record->set('icon.class', 'fas fa-recycle');
-        $record->set('section.dir', $record->get('dir'));
+        $record->set('section.dir', $record->get('link'));
         $record->set('rename', false);
         $record->set('is_recycle', true);
         $list[] = $record->data();
