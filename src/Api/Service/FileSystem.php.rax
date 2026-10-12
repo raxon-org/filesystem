@@ -1049,6 +1049,31 @@ class FileSystem {
             'limit' =>  '*',
             'page' => 1
         ]);
-        ddd($response);
+        if(array_key_exists('list', $response)){
+            $list = [];
+            foreach($response['list'] as $nr => $record){
+                $attribute = $record->attribute ?? [];
+                $attribute_base = end($attribute);
+                if($attribute_base->type === Dir::TYPE){
+                    $record->size = File::size($record);
+                } else {
+                    $record->size = File::size($record);
+                }
+                $explode = explode($object->config('project.volume.dir.recycle'), $record->target, 2);
+                if(array_key_exists(1, $explode)){
+                    $temp = explode('/', $explode[1]);
+                    $year = substr($temp[0], 0, 4);
+                    $month = substr($temp[0], 4, 2);
+                    $day = substr($temp[0], 6, 2);
+                    if(!array_key_exists($year . '-' . $month . '-' . $day, $list)){
+                        $list[$year . '-' . $month . '-' . $day] = [];
+                    }
+                    $list[$year . '-' . $month . '-' . $day][] = $record;
+                }
+            }
+            $data = new Data();
+            $data->data('list', $list);
+            return $data;
+        }
     }
 }
