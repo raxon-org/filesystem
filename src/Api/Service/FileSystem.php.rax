@@ -1039,6 +1039,7 @@ class FileSystem {
     private static function createRecycleBin(App $object, $user=null): Data
     {
         $node = new Node($object);
+        $role_system = $node->role_system();
         $class = 'System.FileSystem.Recycle';
         $filter = [
             'user' => $user->uuid
