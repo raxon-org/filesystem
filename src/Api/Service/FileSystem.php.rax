@@ -1055,7 +1055,7 @@ class FileSystem {
                 $attribute = $record->attribute ?? [];
                 $attribute_base = end($attribute);
                 if($attribute_base->type === Dir::TYPE){
-                    $record->size = File::size($record->target);
+                    $record->size = Dir::size($record->target, true);
                 } else {
                     $record->size = File::size($record->target);
                 }
