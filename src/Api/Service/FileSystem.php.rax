@@ -1045,7 +1045,6 @@ class FileSystem {
             'user' => $user->uuid
         ];
         $response = $node->list($class, $role_system, [
-            "relation" => true,
             'filter' => $filter,
             'limit' =>  '*',
             'page' => 1
