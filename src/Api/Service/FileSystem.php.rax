@@ -496,6 +496,13 @@ class FileSystem {
                     $list['dir'] = $directory;
                     return $list;
                 }
+
+            case Link::TYPE :
+            case 'Link' :
+                dd($directory);
+                $list['nodeList'] = [];
+                $list['dir'] = $directory;
+                return $list;
             case FileSystem::TYPE_TREE :
                 $read = FileSystem::createTree($object, $user);
                 if($read){
