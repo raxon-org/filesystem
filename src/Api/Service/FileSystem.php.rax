@@ -1059,6 +1059,7 @@ class FileSystem {
                 } else {
                     $record->size = File::size($record->target);
                 }
+                $record->size_format = File::size_format($record->size);
                 $explode = explode($object->config('project.volume.dir.recycle'), $record->target, 2);
                 if(array_key_exists(1, $explode)){
                     $temp = explode('/', $explode[1]);
