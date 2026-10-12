@@ -496,9 +496,9 @@ class FileSystem {
                     $list['dir'] = $directory;
                     return $list;
                 }
-
             case Link::TYPE :
             case 'Link' :
+                d('502');
                 dd($directory);
                 $list['nodeList'] = [];
                 $list['dir'] = $directory;
