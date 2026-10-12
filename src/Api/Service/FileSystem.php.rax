@@ -1071,8 +1071,9 @@ class FileSystem {
                     $list[$year . '-' . $month . '-' . $day][] = $record;
                 }
             }
+            krsort($list, SORT_NATURAL);
             $data = new Data();
-            $data->data('list', $list);
+            $data->data($list);
             return $data;
         }
     }
