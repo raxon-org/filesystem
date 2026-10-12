@@ -202,7 +202,13 @@ class FileSystem extends Controller {
                 throw new Exception('Type is empty.');
             }
             $directory = $object->request('directory');
-            $data = Service::list($object, $role, $user, $directory, $type);
+            $link = $object->request('link');
+            if($link){
+                $data = Service::list($object, $role, $user, $link, $type);
+            } else {
+                $data = Service::list($object, $role, $user, $directory, $type);
+            }
+
             return new Response(
                 $data,
                 Response::TYPE_JSON
