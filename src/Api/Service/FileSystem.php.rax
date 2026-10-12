@@ -17,6 +17,7 @@ use Raxon\Module\File;
 use Raxon\Module\Link;
 use Raxon\Module\Filter;
 use Raxon\Module\Sort;
+use Raxon\Node\Module\Node;
 
 class FileSystem {
     const NAME = 'FileSystem';
