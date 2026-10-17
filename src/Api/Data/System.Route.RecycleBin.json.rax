@@ -36,7 +36,7 @@
           "path": "/FileSystem/Recycle/Bin/Restore/All/",
           "host": "{{options('backend.host')}}",
           "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.all",
-          "priority": 2003,
+          "priority": 2005,
           "method": [
             "GET"
           ]
@@ -46,7 +46,7 @@
         "path": "/FileSystem/Recycle/Bin/Restore/Many/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.many",
-        "priority": 2004,
+        "priority": 2006,
         "method": [
           "POST"
         ]
@@ -56,7 +56,7 @@
         "path": "/FileSystem/Recycle/Bin/Restore/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore",
-        "priority": 2004,
+        "priority": 2007,
         "method": [
           "POST"
         ]
