@@ -1104,6 +1104,7 @@ class FileSystem {
                 'field' => 'user',
                 'operator' => '===',
                 'value' => $user->uuid
+                ]
             ],
             'limit' =>  '*',
             'page' => 1
