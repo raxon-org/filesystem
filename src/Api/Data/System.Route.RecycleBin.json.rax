@@ -1,0 +1,66 @@
+{
+  "System": {
+    "Route": [
+      {
+        "name": "filesystem-recycle-bin-delete-all",
+        "path": "/FileSystem/Recycle/Bin/Delete/All/",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete.all",
+        "priority": 2003,
+        "method": [
+          "DELETE"
+        ]
+      },
+      {
+          "name": "filesystem-recycle-bin-delete-many",
+          "path": "/FileSystem/Recycle/Bin/Delete/Many/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete.many",
+          "priority": 2004,
+          "method": [
+            "DELETE"
+          ]
+      },
+      {
+        "name": "filesystem-recycle-bin-delete-record",
+        "path": "/FileSystem/Recycle/Bin/Delete/",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete",
+        "priority": 2004,
+        "method": [
+          "DELETE"
+        ]
+      },
+      {
+          "name": "filesystem-recycle-bin-restore-all",
+          "path": "/FileSystem/Recycle/Bin/Restore/All/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.all",
+          "priority": 2003,
+          "method": [
+            "GET"
+          ]
+      },
+      {
+        "name": "filesystem-recycle-bin-restore-many",
+        "path": "/FileSystem/Recycle/Bin/Restore/Many/",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.many",
+        "priority": 2004,
+        "method": [
+          "POST"
+        ]
+      },
+      {
+        "name": "filesystem-recycle-bin-restore-record",
+        "path": "/FileSystem/Recycle/Bin/Restore/",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore",
+        "priority": 2004,
+        "method": [
+          "POST"
+        ]
+      }
+    ]
+  }
+}
