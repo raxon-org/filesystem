@@ -39,6 +39,30 @@
     {
       "name": "FileSystem:upload",
       "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.restore.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.restore.all",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.restore.record",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.delete.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.delete.all",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "FileSystem:recycle.bin.delete.record",
+      "#class": "Account.Permission"
     }
   ]
 }
