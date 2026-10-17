@@ -1099,11 +1099,12 @@ class FileSystem {
                 'operator' => 'in',
                 'value' => $list
                 ],
+                'and',
                 [
                 'field' => 'user',
                 'operator' => '===',
                 'value' => $user->uuid
-            ]
+            ],
             'limit' =>  '*',
             'page' => 1
         ]);
