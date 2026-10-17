@@ -1127,7 +1127,7 @@ class FileSystem {
                 }
                 $attribute_base = end($attribute_list);
                 if($attribute_base->type === Dir::TYPE){
-                    Dir::move($record->url, $attribute_base->url);
+                    Dir::move($record->target, $attribute_base->url);
                 }
                 elseif($attribute_base->type === File::TYPE){
                     File::move($record->target, $attribute_base->url);
