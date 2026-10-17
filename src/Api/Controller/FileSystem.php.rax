@@ -397,7 +397,7 @@ class FileSystem extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $list = $object->request();
+            $list = $object->request('many');
             $data = Service::recycle_bin_restore_many($object, $role, $user, $list);
             return new Response(
                 $data,
