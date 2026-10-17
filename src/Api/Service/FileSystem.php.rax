@@ -1095,13 +1095,13 @@ class FileSystem {
         $response = $node->list($class, $role_system, [
             'where' => [
                 [
-                'field' => 'uuid',
+                'attribute' => 'uuid',
                 'operator' => 'in',
                 'value' => $list
                 ],
                 'and',
                 [
-                'field' => 'user',
+                'attribute' => 'user',
                 'operator' => '===',
                 'value' => $user->uuid
                 ]
