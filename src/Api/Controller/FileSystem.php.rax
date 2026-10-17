@@ -371,7 +371,6 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function recycle_bin_restore_all(App $object){
-        return false;
         $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
@@ -392,7 +391,6 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function recycle_bin_restore_many(App $object){
-        return false;
         $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
@@ -415,7 +413,6 @@ class FileSystem extends Controller {
      * @throws Exception
      */
     public static function recycle_bin_restore_record(App $object){
-        return false;
         $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
         if(
             property_exists($role, 'name') &&
