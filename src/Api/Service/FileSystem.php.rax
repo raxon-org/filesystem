@@ -946,92 +946,92 @@ class FileSystem {
         }
     }
 
-        /**
-         * @throws Exception
-         */
-        private static function createTree(App $object, $user=null): Data
-        {
-            $class = 'Application.FileManager.Tree';
-            $data = new Data();
-            $list = [];
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Desktop/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Desktop', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-desktop');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('link', $object->config('project.dir.mount') . 'Vps3/Mount/Favorite/');
-            $record->set('type', Link::TYPE);
-            $record->set('name', htmlspecialchars('Favorites', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-star');
-            $record->set('section.dir', $record->get('link'));
-            $record->set('is_favorite', true);
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Document/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Documents', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-folder');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir',  $object->config('project.dir.mount') . 'Vps3/Mount/Audio/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Audio', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-music');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Book/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Books', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-cloud');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Video/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Video\'s', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-video');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Photo/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Photo\'s', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-cloud');
-            $record->set('section.dir', $record->get('name'));
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', '/');
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Root', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-cloud');
-            $record->set('section.dir', $record->get('dir'));
-            $record->set('rename', false);
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('dir', $object->config('project.dir.mount'));
-            $record->set('type', Dir::TYPE);
-            $record->set('name', htmlspecialchars('Mount', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-cloud');
-            $record->set('section.dir', $record->get('dir'));
-            $record->set('rename', false);
-            $list[] = $record->data();
-            $record = new Data();
-            $record->set('link', $object->config('project.volume.dir.recycle'));
-            $record->set('type', Link::TYPE);
-            $record->set('name', htmlspecialchars('Recycle Bin', ENT_HTML5));
-            $record->set('icon.class', 'fas fa-recycle');
-            $record->set('section.dir', $record->get('link'));
-            $record->set('rename', false);
-            $record->set('is_recycle', true);
-            $list[] = $record->data();
-            $data->data('tree', $list);
-            return $data;
-        }
+    /**
+     * @throws Exception
+     */
+    private static function createTree(App $object, $user=null): Data
+    {
+        $class = 'Application.FileManager.Tree';
+        $data = new Data();
+        $list = [];
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Desktop/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Desktop', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-desktop');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('link', $object->config('project.dir.mount') . 'Vps3/Mount/Favorite/');
+        $record->set('type', Link::TYPE);
+        $record->set('name', htmlspecialchars('Favorites', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-star');
+        $record->set('section.dir', $record->get('link'));
+        $record->set('is_favorite', true);
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Document/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Documents', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-folder');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir',  $object->config('project.dir.mount') . 'Vps3/Mount/Audio/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Audio', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-music');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Book/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Books', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-cloud');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Video/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Video\'s', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-video');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount') . 'Vps3/Mount/Photo/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Photo\'s', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-cloud');
+        $record->set('section.dir', $record->get('name'));
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', '/');
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Root', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-cloud');
+        $record->set('section.dir', $record->get('dir'));
+        $record->set('rename', false);
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('dir', $object->config('project.dir.mount'));
+        $record->set('type', Dir::TYPE);
+        $record->set('name', htmlspecialchars('Mount', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-cloud');
+        $record->set('section.dir', $record->get('dir'));
+        $record->set('rename', false);
+        $list[] = $record->data();
+        $record = new Data();
+        $record->set('link', $object->config('project.volume.dir.recycle'));
+        $record->set('type', Link::TYPE);
+        $record->set('name', htmlspecialchars('Recycle Bin', ENT_HTML5));
+        $record->set('icon.class', 'fas fa-recycle');
+        $record->set('section.dir', $record->get('link'));
+        $record->set('rename', false);
+        $record->set('is_recycle', true);
+        $list[] = $record->data();
+        $data->data('tree', $list);
+        return $data;
+    }
 
     /**
      * @throws Exception
@@ -1089,7 +1089,28 @@ class FileSystem {
         array $list
     ): array
     {
-        dd($list);
+        $class = 'System.FileSystem.Recycle';
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        $response = $node->list($class, $role_system, [
+            'where' => [
+                [
+                'field' => 'uuid',
+                'operator' => 'in',
+                'value' => $list
+                ],
+                [
+                'field' => 'user',
+                'operator' => '===',
+                'value' => $user->uuid
+            ]
+            'limit' =>  '*',
+            'page' => 1
+        ]);
+        dd($response);
+        return [];
+        //$response = $node->restore_many($class, $role_system, $list);
+        return $response;
         return $list;
     }
 }
