@@ -1130,7 +1130,9 @@ class FileSystem {
                     Dir::copy($record->target, $attribute_base->url);
                 }
                 elseif($attribute_base->type === File::TYPE){
-                    File::copy($record->target, $attribute_base->url);
+                    if(!File::exist($attribute_base->url)){
+                        File::copy($record->target, $attribute_base->url);
+                    }
                 }
             }
         }
