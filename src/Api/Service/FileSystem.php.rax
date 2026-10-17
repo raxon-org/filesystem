@@ -1078,4 +1078,18 @@ class FileSystem {
             return $data;
         }
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function recycle_bin_restore_many(
+        App $object,
+        object $role,
+        object $user,
+        array $list
+    ): array
+    {
+        dd($list);
+        return $list;
+    }
 }

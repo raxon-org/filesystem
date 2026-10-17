@@ -365,4 +365,69 @@ class FileSystem extends Controller {
         }
     }
 
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function recycle_bin_restore_all(App $object){
+        return false;
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $data = Service::recycle_bin_restore_all($object, $role, $user, $list);
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
+        }
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function recycle_bin_restore_many(App $object){
+        return false;
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $list = $object->request();
+            $data = Service::recycle_bin_restore_many($object, $role, $user, $list);
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
+
+        }
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function recycle_bin_restore_record(App $object){
+        return false;
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $uuid = $object->request('uuid');
+            $data = Service::recycle_bin_restore_record($object, $role, $user, $uuid);
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
+        }
+    }
 }
