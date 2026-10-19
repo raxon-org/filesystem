@@ -401,9 +401,6 @@ class FileSystem {
             case File::TYPE :
                 $dir = new Dir();
                 $read = $dir->read($directory);
-                if(stristr($directory, '28-2026') !== false){
-                    dd($read);
-                }
                 if($read){
                     $list_dir = Filter::list($read)->where([
                         'type' => [
