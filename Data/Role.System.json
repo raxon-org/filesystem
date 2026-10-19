@@ -41,31 +41,27 @@
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.restore.many",
+      "name": "System:FileSystem:Recycle:restore.many",
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.restore.all",
+      "name": "System:FileSystem:Recycle:restore.all",
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.restore.record",
+      "name": "System:FileSystem:Recycle:restore.record",
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.delete.many",
+      "name": "System:FileSystem:Recycle:delete.many",
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.delete.all",
+      "name": "System:FileSystem:Recycle:delete.all",
       "#class": "Account.Permission"
     },
     {
-      "name": "FileSystem:recycle.bin.delete.record",
-      "#class": "Account.Permission"
-    },
-    {
-      "name": "FileSystem:recycle.bin.delete.record2",
+      "name": "System:FileSystem:Recycle:delete.record",
       "#class": "Account.Permission"
     }
   ]
