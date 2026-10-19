@@ -1109,8 +1109,8 @@ class FileSystem {
             'limit' =>  '*',
             'page' => 1
         ]);
+        $list = [];
         if(array_key_exists('list', $response)){
-            $list = [];
             foreach($response['list'] as $nr => $record){
                 $attribute_list = $record->attribute ?? [];
                 foreach($attribute_list as $attribute){
@@ -1118,7 +1118,7 @@ class FileSystem {
                         continue;
                     } else {
                         if($attribute->type === Dir::TYPE){
-                            Dir::create($attribute->url, $attribute->mode);
+                            Dir::create($attribute->url, Dir::CHMOD);
                         }
                         elseif($attribute->type === File::TYPE){
 
@@ -1134,12 +1134,14 @@ class FileSystem {
                         File::copy($record->target, $attribute_base->url);
                     }
                 }
+                $list[] = $record->uuid;
             }
         }
-        dd($response);
-        return [];
-        //$response = $node->restore_many($class, $role_system, $list);
-        return $response;
-        return $list;
+        $options = [
+            'uuid' => $list
+        ];
+        $result = $node->delete_many($class, $role_system, $options);
+        dd($result);
+        return $result;
     }
 }
