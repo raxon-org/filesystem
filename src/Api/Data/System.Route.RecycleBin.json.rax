@@ -1,12 +1,34 @@
 {
   "System": {
     "Route": [
+        {
+          "name": "file-system-recycle-bin",
+          "path": "\/FileSystem\/Recycle\/Bin\/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:bin",
+          "priority": 2002,
+          "method": [
+            "DELETE",
+            "GET",
+            "POST"
+          ]
+        },
+        {
+          "name": "filesystem-recycle-bin-restore",
+          "path": "\/FileSystem\/Recycle\/Restore\/{{literal}}{{$uuid}}{{/literal}}\/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
+          "priority": 2003,
+          "method": [
+            "GET"
+          ]
+        }
       {
         "name": "filesystem-recycle-bin-delete-all",
         "path": "/FileSystem/Recycle/Bin/Delete/All/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete.all",
-        "priority": 2003,
+        "priority": 2004,
         "method": [
           "DELETE"
         ]

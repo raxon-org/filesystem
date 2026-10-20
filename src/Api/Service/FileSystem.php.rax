@@ -499,6 +499,7 @@ class FileSystem {
                         $list = [];
                         $list['nodeList'] = $read->data();;
                         $list['dir'] = $directory;
+                        $list['type'] = 'recycle-bin';
                         return $list;
                     default:
                         throw new Exception('Link (' . $directory . ') has no template yet...');
