@@ -1141,8 +1141,6 @@ class FileSystem {
         $options = [
             'uuid' => $list
         ];
-        $result = $node->delete_many($class, $role_system, $options);
-        dd($result);
-        return $result;
+        return $node->delete_many($class, $role_system, $options);
     }
 }

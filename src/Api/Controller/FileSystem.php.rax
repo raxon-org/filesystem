@@ -398,7 +398,18 @@ class FileSystem extends Controller {
             $user
         ){
             $list = $object->request('many');
-            $data = Service::recycle_bin_restore_many($object, $role, $user, $list);
+            $data = (object) [];
+            $list_delete = Service::recycle_bin_restore_many($object, $role, $user, $list);
+            if(is_array($list_delete)){
+                $data->uuid = $list_delete;
+                $data->error = false;
+                foreach($list_delete as $uuid => $status){
+                    if($status === false){
+                        $data->error = true;
+                        break;
+                    }
+                }
+            }
             return new Response(
                 $data,
                 Response::TYPE_JSON
