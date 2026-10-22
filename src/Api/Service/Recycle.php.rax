@@ -56,6 +56,7 @@ class Recycle {
         $list = [];
         if(array_key_exists('list', $response)){
             foreach($response['list'] as $nr => $record){
+                $attribute_list = $record->attribute ?? [];
                 $attribute_base = end($attribute_list);
                 if($attribute_base->type === Dir::TYPE){
                     Dir::remove($record->target);
@@ -105,6 +106,7 @@ class Recycle {
         $list = [];
         if(array_key_exists('list', $response)){
             foreach($response['list'] as $nr => $record){
+                $attribute_list = $record->attribute ?? [];
                 $attribute_base = end($attribute_list);
                 if($attribute_base->type === Dir::TYPE){
                     Dir::remove($record->target);
