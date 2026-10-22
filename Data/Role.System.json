@@ -82,7 +82,7 @@
       "#class": "Account.Permission"
     },
     {
-      "name": "System:FileSystem:Recycle:restore.record",
+      "name": "System:FileSystem:Recycle:restore",
       "#class": "Account.Permission"
     },
     {
@@ -94,7 +94,7 @@
       "#class": "Account.Permission"
     },
     {
-      "name": "System:FileSystem:Recycle:delete.record",
+      "name": "System:FileSystem:Recycle:delete",
       "#class": "Account.Permission"
     }
   ]

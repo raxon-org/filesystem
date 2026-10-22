@@ -20,7 +20,7 @@ use Raxon\Module\Sort;
 use Raxon\Node\Module\Node;
 
 class Recycle {
-    const NAME = 'Recycle';
+    const NAME = 'System.FileSystem.Recycle';
 
     /**
      * @throws Exception
