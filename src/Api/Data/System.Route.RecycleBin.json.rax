@@ -44,15 +44,15 @@
         ]
       },
       {
-                "name": "filesystem-recycle-bin-restore",
-                "path": "\/FileSystem\/Recycle\/Restore\/{{literal}}{{$uuid}}{{/literal}}\/",
-                "host": "{{options('backend.host')}}",
-                "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
-                "priority": 2005,
-                "method": [
-                  "GET"
-                ]
-              },
+        "name": "filesystem-recycle-bin-restore",
+        "path": "\/FileSystem\/Recycle\/Restore\/{{literal}}{{$uuid}}{{/literal}}\/",
+        "host": "{{options('backend.host')}}",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
+        "priority": 2005,
+        "method": [
+          "GET"
+        ]
+      },
       {
         "name": "filesystem-recycle-bin-restore-record",
         "path": "/FileSystem/Recycle/Restore/",

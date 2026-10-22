@@ -6,7 +6,7 @@
         "path": "/FileSystem/List/{{literal}}{{$type}}{{/literal}}/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:list",
-        "priority": 2003,
+        "priority": 2007,
         "method": [
           "GET",
           "POST"
@@ -17,7 +17,7 @@
         "path": "/FileSystem/Move/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:move",
-        "priority": 2004,
+        "priority": 2008,
         "method": [
           "POST"
         ]
@@ -27,7 +27,7 @@
         "path": "/FileSystem/Upload/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:upload",
-        "priority": 2005,
+        "priority": 2009,
         "method": [
           "GET",
           "POST"
@@ -38,7 +38,7 @@
         "path": "/FileSystem/ContextMenu/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:context.menu",
-        "priority": 2005,
+        "priority": 2010,
         "method": [
           "GET",
           "POST"
@@ -49,7 +49,7 @@
         "path": "/FileSystem/Rename/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:rename",
-        "priority": 2005,
+        "priority": 2011,
         "method": [
           "POST"
         ]
@@ -59,7 +59,7 @@
         "path": "/FileSystem/Copy/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:copy",
-        "priority": 2005,
+        "priority": 2012,
         "method": [
           "POST"
         ]
@@ -69,7 +69,7 @@
         "path": "/FileSystem/Download/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:download",
-        "priority": 2005,
+        "priority": 2013,
         "method": [
           "POST",
           "GET"
@@ -80,7 +80,7 @@
         "path": "/FileSystem/{{literal}}{{$type}}{{/literal}}/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:create",
-        "priority": 2006,
+        "priority": 2014,
         "method": [
           "POST"
         ]
@@ -90,7 +90,7 @@
         "path": "/FileSystem/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:read",
-        "priority": 2007,
+        "priority": 2015,
         "method": [
           "GET",
           "POST"
@@ -101,7 +101,7 @@
         "path": "/FileSystem/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:update",
-        "priority": 2008,
+        "priority": 2016,
         "method": [
           "PATCH",
           "PUT"
@@ -112,7 +112,7 @@
         "path": "/FileSystem/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:delete",
-        "priority": 2009,
+        "priority": 2017,
         "method": [
           "DELETE"
         ]
