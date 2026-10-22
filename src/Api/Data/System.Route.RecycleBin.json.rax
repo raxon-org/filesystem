@@ -24,20 +24,10 @@
           ]
         },
       {
-        "name": "filesystem-recycle-bin-delete-all",
-        "path": "/FileSystem/Recycle/Bin/Delete/All/",
-        "host": "{{options('backend.host')}}",
-        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete.all",
-        "priority": 2004,
-        "method": [
-          "DELETE"
-        ]
-      },
-      {
           "name": "filesystem-recycle-bin-delete-many",
           "path": "/FileSystem/Recycle/Bin/Delete/Many/",
           "host": "{{options('backend.host')}}",
-          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete.many",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:delete.many",
           "priority": 2005,
           "method": [
             "DELETE"
@@ -47,21 +37,11 @@
         "name": "filesystem-recycle-bin-delete-record",
         "path": "/FileSystem/Recycle/Bin/Delete/",
         "host": "{{options('backend.host')}}",
-        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.delete",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:delete",
         "priority": 2006,
         "method": [
           "DELETE"
         ]
-      },
-      {
-          "name": "filesystem-recycle-bin-restore-all",
-          "path": "/FileSystem/Recycle/Bin/Restore/All/",
-          "host": "{{options('backend.host')}}",
-          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.all",
-          "priority": 2007,
-          "method": [
-            "GET"
-          ]
       },
       {
         "name": "filesystem-recycle-bin-restore-many",

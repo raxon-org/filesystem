@@ -25,6 +25,105 @@ class Recycle {
     /**
      * @throws Exception
      */
+    public static function delete(
+        App $object,
+        object $role,
+        object $user,
+        string $uuid
+    ): array
+    {
+        $list = [$uuid];
+        $class = 'System.FileSystem.Recycle';
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        $response = $node->list($class, $role_system, [
+            'where' => [
+                [
+                'attribute' => 'uuid',
+                'operator' => 'in',
+                'value' => $list
+                ],
+                'and',
+                [
+                'attribute' => 'user',
+                'operator' => '===',
+                'value' => $user->uuid
+                ]
+            ],
+            'limit' =>  '*',
+            'page' => 1
+        ]);
+        $list = [];
+        if(array_key_exists('list', $response)){
+            foreach($response['list'] as $nr => $record){
+                $attribute_base = end($attribute_list);
+                if($attribute_base->type === Dir::TYPE){
+                    Dir::remove($record->target);
+                }
+                elseif($attribute_base->type === File::TYPE){
+                    File::remove($record->target);
+                }
+                $list[] = $record->uuid;
+            }
+        }
+        $options = [
+            'uuid' => $list
+        ];
+        return $node->delete_many($class, $role_system, $options);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function delete_many(
+        App $object,
+        object $role,
+        object $user,
+        array $list
+    ): array
+    {
+        $class = 'System.FileSystem.Recycle';
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        $response = $node->list($class, $role_system, [
+            'where' => [
+                [
+                'attribute' => 'uuid',
+                'operator' => 'in',
+                'value' => $list
+                ],
+                'and',
+                [
+                'attribute' => 'user',
+                'operator' => '===',
+                'value' => $user->uuid
+                ]
+            ],
+            'limit' =>  '*',
+            'page' => 1
+        ]);
+        $list = [];
+        if(array_key_exists('list', $response)){
+            foreach($response['list'] as $nr => $record){
+                $attribute_base = end($attribute_list);
+                if($attribute_base->type === Dir::TYPE){
+                    Dir::remove($record->target);
+                }
+                elseif($attribute_base->type === File::TYPE){
+                    File::remove($record->target);
+                }
+                $list[] = $record->uuid;
+            }
+        }
+        $options = [
+            'uuid' => $list
+        ];
+        return $node->delete_many($class, $role_system, $options);
+    }
+
+    /**
+     * @throws Exception
+     */
     public static function restore(
         App $object,
         object $role,
@@ -72,10 +171,12 @@ class Recycle {
                 $attribute_base = end($attribute_list);
                 if($attribute_base->type === Dir::TYPE){
                     Dir::copy($record->target, $attribute_base->url);
+                    Dir::remove($record->target);
                 }
                 elseif($attribute_base->type === File::TYPE){
                     if(!File::exist($attribute_base->url)){
                         File::copy($record->target, $attribute_base->url);
+                        File::remove($record->target);
                     }
                 }
                 $list[] = $record->uuid;
@@ -136,10 +237,12 @@ class Recycle {
                 $attribute_base = end($attribute_list);
                 if($attribute_base->type === Dir::TYPE){
                     Dir::copy($record->target, $attribute_base->url);
+                    Dir::remove($record->target);
                 }
                 elseif($attribute_base->type === File::TYPE){
                     if(!File::exist($attribute_base->url)){
                         File::copy($record->target, $attribute_base->url);
+                        File::remove($record->target);
                     }
                 }
                 $list[] = $record->uuid;

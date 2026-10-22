@@ -131,6 +131,72 @@ class Recycle extends Controller {
      * @throws ObjectException
      * @throws Exception
      */
+    public static function delete(App $object){
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $uuid = $object->request('uuid');
+            $data = (object) [];
+            $list_delete = Service::delete($object, $role, $user, $uuid);
+            if(is_array($list_delete)){
+                $data->error = false;
+                foreach($list_delete as $uuid => $status){
+                    if($uuid === $object->request('uuid')){
+                        $data->uuid = $uuid;
+                    }
+                    if($status === false){
+                        $data->error = true;
+                        break;
+                    }
+                }
+            }
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
+        }
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function delete_many(App $object){
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $list = $object->request('many');
+            $data = (object) [];
+            $list_delete = Service::delete_many($object, $role, $user, $list);
+            if(is_array($list_delete)){
+                $data->uuid = $list_delete;
+                $data->error = false;
+                foreach($list_delete as $uuid => $status){
+                    if($status === false){
+                        $data->error = true;
+                        break;
+                    }
+                }
+            }
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
+        }
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
     public static function restore(App $object){
         $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
         if(
