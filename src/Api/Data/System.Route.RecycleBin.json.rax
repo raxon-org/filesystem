@@ -6,59 +6,59 @@
           "path": "\/FileSystem\/Recycle\/Bin\/",
           "host": "{{options('backend.host')}}",
           "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:bin",
-          "priority": 2002,
+          "priority": 2001,
           "method": [
             "DELETE",
             "GET",
             "POST"
           ]
         },
-        {
-          "name": "filesystem-recycle-bin-restore",
-          "path": "\/FileSystem\/Recycle\/Restore\/{{literal}}{{$uuid}}{{/literal}}\/",
-          "host": "{{options('backend.host')}}",
-          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
-          "priority": 2003,
-          "method": [
-            "GET"
-          ]
-        },
       {
           "name": "filesystem-recycle-bin-delete-many",
-          "path": "/FileSystem/Recycle/Bin/Delete/Many/",
+          "path": "/FileSystem/Recycle/Delete/Many/",
           "host": "{{options('backend.host')}}",
           "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:delete.many",
-          "priority": 2005,
+          "priority": 2002,
           "method": [
             "DELETE"
           ]
       },
       {
         "name": "filesystem-recycle-bin-delete-record",
-        "path": "/FileSystem/Recycle/Bin/Delete/",
+        "path": "/FileSystem/Recycle/Delete/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:delete",
-        "priority": 2006,
+        "priority": 2003,
         "method": [
           "DELETE"
         ]
       },
       {
         "name": "filesystem-recycle-bin-restore-many",
-        "path": "/FileSystem/Recycle/Bin/Restore/Many/",
+        "path": "/FileSystem/Recycle/Restore/Many/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore.many",
-        "priority": 2008,
+        "priority": 2004,
         "method": [
           "POST"
         ]
       },
       {
+                "name": "filesystem-recycle-bin-restore",
+                "path": "\/FileSystem\/Recycle\/Restore\/{{literal}}{{$uuid}}{{/literal}}\/",
+                "host": "{{options('backend.host')}}",
+                "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
+                "priority": 2005,
+                "method": [
+                  "GET"
+                ]
+              },
+      {
         "name": "filesystem-recycle-bin-restore-record",
-        "path": "/FileSystem/Recycle/Bin/Restore/",
+        "path": "/FileSystem/Recycle/Restore/",
         "host": "{{options('backend.host')}}",
         "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
-        "priority": 2009,
+        "priority": 2006,
         "method": [
           "POST"
         ]
