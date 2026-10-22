@@ -84,9 +84,7 @@ class Recycle {
         $options = [
             'uuid' => $list
         ];
-        d($options);
-        $result = $node->delete_many($class, $role_system, $options);
-        ddd($result);
+        return $node->delete_many($class, $role_system, $options);
     }
 
     /**

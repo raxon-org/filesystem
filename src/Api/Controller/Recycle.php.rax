@@ -140,10 +140,8 @@ class Recycle extends Controller {
         ){
             $uuid = $object->request('uuid');
             $data = (object) [];
-            $record_delete = Service::restore($object, $role, $user, $uuid);
-            ddd($record_delete);
+            $list_delete = Service::restore($object, $role, $user, $uuid);
             if(is_array($list_delete)){
-                $data->uuid = $list_delete;
                 $data->error = false;
                 foreach($list_delete as $uuid => $status){
                     if($uuid === $object->request('uuid')){
