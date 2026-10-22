@@ -2,10 +2,10 @@
 <?php
 namespace Domain\{{php.namespace.host($options.backend.host)}}\Controller;
 
+use Domain\{{php.namespace.host($options.backend.host)}}\Service\Recycle as Service;
 use Exception;
 use Package\Raxon\Account\Exception\AuthorizationException;
 use Package\Raxon\Account\Module\Permission;
-use Package\Raxon\Filemanager\Exception\ApplicationNotFoundException;
 use Raxon\App;
 use Raxon\Exception\ErrorException;
 use Raxon\Exception\ObjectException;
@@ -127,20 +127,64 @@ class Recycle extends Controller {
     }
 
     /**
-     * @throws ErrorException
+     * @throws UrlEmptyException
      * @throws ObjectException
-     * @throws AuthorizationException
-     * @throws FileWriteException
      * @throws Exception
      */
     public static function restore(App $object){
-        $role = Permission::controller($object, File::basename(__CLASS__), __FUNCTION__, $user);
-        if($role === null){
-            throw new AuthorizationException('You are not allowed to access this resource.');
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $list = [
+                $object->request('uuid')
+            ];
+            $data = (object) [];
+            $list_delete = Service::restore_many($object, $role, $user, $list);
+            if(is_array($list_delete)){
+                $data->uuid = $list_delete;
+                $data->error = false;
+                foreach($list_delete as $uuid => $status){
+                    if($status === false){
+                        $data->error = true;
+                        break;
+                    }
+                }
+            }
+            return new Response(
+                $data,
+                Response::TYPE_JSON
+            );
         }
-        if(property_exists($role, 'name') && $role->name === 'ROLE_ADMIN'){
-            //uuid = recycle uuid combine with user uuid
-            $data = $object->request();
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function restore_many(App $object){
+        $role = Permission::controller($object,Service::NAME, __FUNCTION__, $user);
+        if(
+            property_exists($role, 'name') &&
+            $role->name !== 'ROLE_ANONYMOUS' &&
+            $user
+        ){
+            $list = $object->request('many');
+            $data = (object) [];
+            $list_delete = Service::restore_many($object, $role, $user, $list);
+            if(is_array($list_delete)){
+                $data->uuid = $list_delete;
+                $data->error = false;
+                foreach($list_delete as $uuid => $status){
+                    if($status === false){
+                        $data->error = true;
+                        break;
+                    }
+                }
+            }
             return new Response(
                 $data,
                 Response::TYPE_JSON

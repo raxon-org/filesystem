@@ -67,7 +67,7 @@
         "name": "filesystem-recycle-bin-restore-many",
         "path": "/FileSystem/Recycle/Bin/Restore/Many/",
         "host": "{{options('backend.host')}}",
-        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore.many",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore.many",
         "priority": 2008,
         "method": [
           "POST"
@@ -77,7 +77,7 @@
         "name": "filesystem-recycle-bin-restore-record",
         "path": "/FileSystem/Recycle/Bin/Restore/",
         "host": "{{options('backend.host')}}",
-        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:FileSystem:recycle.bin.restore",
+        "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Recycle:restore",
         "priority": 2009,
         "method": [
           "POST"

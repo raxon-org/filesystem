@@ -1,0 +1,154 @@
+{{$options = options()}}
+<?php
+namespace Domain\{{php.namespace.host($options.backend.host)}}\Service;
+
+use DateTime;
+use Exception;
+use Raxon\App;
+use Raxon\Exception\DirectoryException;
+use Raxon\Exception\DirectoryNotExistException;
+use Raxon\Exception\ErrorException;
+use Raxon\Exception\FileMoveException;
+use Raxon\Exception\FileNotExistException;
+use Raxon\Exception\FileWriteException;
+use Raxon\Module\Data;
+use Raxon\Module\Dir;
+use Raxon\Module\File;
+use Raxon\Module\Link;
+use Raxon\Module\Filter;
+use Raxon\Module\Sort;
+use Raxon\Node\Module\Node;
+
+class Recycle {
+    const NAME = 'Recycle';
+
+    /**
+     * @throws Exception
+     */
+    public static function restore(
+        App $object,
+        object $role,
+        object $user,
+        string $uuid
+    ): array
+    {
+        $list = [$uuid];
+        $class = 'System.FileSystem.Recycle';
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        $response = $node->list($class, $role_system, [
+            'where' => [
+                [
+                'attribute' => 'uuid',
+                'operator' => '===',
+                'value' => $list
+                ],
+                'and',
+                [
+                'attribute' => 'user',
+                'operator' => '===',
+                'value' => $user->uuid
+                ]
+            ],
+            'limit' =>  '*',
+            'page' => 1
+        ]);
+        $list = [];
+        if(array_key_exists('list', $response)){
+            foreach($response['list'] as $nr => $record){
+                $attribute_list = $record->attribute ?? [];
+                foreach($attribute_list as $attribute){
+                    if(File::exist($attribute->url)){
+                        continue;
+                    } else {
+                        if($attribute->type === Dir::TYPE){
+                            Dir::create($attribute->url, Dir::CHMOD);
+                        }
+                        elseif($attribute->type === File::TYPE){
+
+                        }
+                    }
+                }
+                $attribute_base = end($attribute_list);
+                if($attribute_base->type === Dir::TYPE){
+                    Dir::copy($record->target, $attribute_base->url);
+                }
+                elseif($attribute_base->type === File::TYPE){
+                    if(!File::exist($attribute_base->url)){
+                        File::copy($record->target, $attribute_base->url);
+                    }
+                }
+                $list[] = $record->uuid;
+            }
+        }
+        $options = [
+            'uuid' => $list
+        ];
+        $result = $node->delete_many($class, $role_system, $options);
+        ddd($result);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function restore_many(
+        App $object,
+        object $role,
+        object $user,
+        array $list
+    ): array
+    {
+        $class = 'System.FileSystem.Recycle';
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        $response = $node->list($class, $role_system, [
+            'where' => [
+                [
+                'attribute' => 'uuid',
+                'operator' => 'in',
+                'value' => $list
+                ],
+                'and',
+                [
+                'attribute' => 'user',
+                'operator' => '===',
+                'value' => $user->uuid
+                ]
+            ],
+            'limit' =>  '*',
+            'page' => 1
+        ]);
+        $list = [];
+        if(array_key_exists('list', $response)){
+            foreach($response['list'] as $nr => $record){
+                $attribute_list = $record->attribute ?? [];
+                foreach($attribute_list as $attribute){
+                    if(File::exist($attribute->url)){
+                        continue;
+                    } else {
+                        if($attribute->type === Dir::TYPE){
+                            Dir::create($attribute->url, Dir::CHMOD);
+                        }
+                        elseif($attribute->type === File::TYPE){
+
+                        }
+                    }
+                }
+                $attribute_base = end($attribute_list);
+                if($attribute_base->type === Dir::TYPE){
+                    Dir::copy($record->target, $attribute_base->url);
+                }
+                elseif($attribute_base->type === File::TYPE){
+                    if(!File::exist($attribute_base->url)){
+                        File::copy($record->target, $attribute_base->url);
+                    }
+                }
+                $list[] = $record->uuid;
+            }
+        }
+        $options = [
+            'uuid' => $list
+        ];
+        return $node->delete_many($class, $role_system, $options);
+    }
+}
