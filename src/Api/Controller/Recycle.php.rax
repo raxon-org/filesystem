@@ -138,15 +138,17 @@ class Recycle extends Controller {
             $role->name !== 'ROLE_ANONYMOUS' &&
             $user
         ){
-            $list = [
-                $object->request('uuid')
-            ];
+            $uuid = $object->request('uuid');
             $data = (object) [];
-            $list_delete = Service::restore_many($object, $role, $user, $list);
+            $record_delete = Service::restore($object, $role, $user, $uuid);
+            ddd($record_delete);
             if(is_array($list_delete)){
                 $data->uuid = $list_delete;
                 $data->error = false;
                 foreach($list_delete as $uuid => $status){
+                    if($uuid === $object->request('uuid')){
+                        $data->uuid = $uuid;
+                    }
                     if($status === false){
                         $data->error = true;
                         break;
