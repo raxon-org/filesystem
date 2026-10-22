@@ -40,7 +40,7 @@ class Recycle {
             'where' => [
                 [
                 'attribute' => 'uuid',
-                'operator' => '===',
+                'operator' => 'in',
                 'value' => $list
                 ],
                 'and',
